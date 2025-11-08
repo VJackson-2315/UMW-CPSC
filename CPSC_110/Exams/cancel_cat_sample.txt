@@ -1,0 +1,8 @@
+This file is a sample used to test
+the redact code
+cat from problem one
+any line starting with "cat" will 
+cat be replaced with a line that says "REDACTED"
+It has three lines to redact
+cat Cancel cat culture
+because why not

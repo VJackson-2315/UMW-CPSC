@@ -1,0 +1,8 @@
+This file is a sample used to test
+the redact code
+REDACTED 
+any line starting with "cat" will 
+REDACTED 
+It has three lines to redact
+REDACTED 
+because why not
