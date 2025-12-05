@@ -1,0 +1,30 @@
+Using ints with size 10000
+
+Adding elements at the beginning
+Linked: 1 microsecond
+Array: 5 microseconds
+
+Adding elements in the middle
+Linked: 78 microseconds
+Array: 2 microseconds
+76 microseconds
+
+Adding elements at the end
+Linked: 1 microsecond
+Array: 0 microseconds
+1 microsecond
+
+Removing elements at the beginning
+Linked: 206 microseconds
+Array: 4 microseconds
+202 microseconds
+
+Removing elements in the middle
+Linked: 170 microseconds
+Array: 10 microseconds
+180 microseconds
+
+Removing elements at the end
+Linked: 273 microseconds
+Array: 0 microseconds
+273 microseconds

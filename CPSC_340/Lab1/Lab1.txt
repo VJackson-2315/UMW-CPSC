@@ -1,0 +1,8 @@
+Tori Jackson
+
+Was able to finish the skeleton build, added fuctions add(), subtract(), get() to replace the operator for now, and swap() to swap indexes
+
+I'm still confused about the pointers, especially with the * operator
+
+I do have one question about the project:
+Assuming I'll be using the testArray I've built in this lab, do I create a copy of the .cpp and .h files or is there a different way to import them?

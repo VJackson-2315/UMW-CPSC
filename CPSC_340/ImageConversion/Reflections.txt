@@ -1,0 +1,33 @@
+Tori Jackson
+
+1. The red, green, and blue variables made the grayscale easier. It also made creating the pixels from the original file
+and outputting the pixels easier through the different file steams. I think a cost in terms of performance would be that
+the streams are going through one value at a time before assigning, and then creating another pixel every 3 values.
+Additionally, I had what I'd call "store" variables that would be a copy of the rgb values for reverting the colors, so
+copying those values would also be an issue.
+
+4. The only actual checker was different print statements. I had a pixel counter, a statement at the beginning of each
+image manipulation function, and one that showed the first pixel's original values and the same pixel but manipulated.
+
+6. Both grayscale and invert functions have a boolean that decides whether to call createFile or not.
+createFile has one string parameter, which is the manipulation last used. Both manipulation functions have the string
+parameter set to the name, so it sets the name of the new file that will be
+created.(ex: farmer-grayscale vs farmer-invert).
+
+7. To parse through comments, I would put an if statement to detect for any # characters, and if it is detected,
+either go to the next line, or store the comment in a variable and delete.
+
+10. My program wouldn't override the grayscale unless it was run twice with the same file, or the same file's last
+transformation was a grayscale. I would probably put a loop and if statement to check if the file already exists and if
+it does, add a number to the name to differentiate them (via a counter variable).
+
+Extra Credit #1
+1. Similar to the grayscale function, I created an inversion function. While the file is being read initially, it stores
+the max value into an int that is stored in every pixel. To create the inversion effect, each color is:
+colorVal = max - colorVal;
+Put into the arrayList function, it is basically the same pixel-by-pixel function the grayscale was with the change of
+what pixel function is being called.
+
+2. Order doesn't really matter between the two. However, I added a revert() function that allows the modifiers to be
+separate instead of combined, as well as a boolean in grayscale and invert that adds the option to create a file or
+not.
