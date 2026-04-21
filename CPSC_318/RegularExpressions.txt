@@ -1,0 +1,3 @@
+﻿1. egrep -o ‘([0-9]{1,3}\.){3}[0-9]{1,3}’ /var/log/auth.log
+2. d7646ba564c906bcecbc4c788e0cc06a
+3. 62dafb7897c52c94be58e701125540c8

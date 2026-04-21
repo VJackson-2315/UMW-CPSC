@@ -1,0 +1,125 @@
+---
+- name: Ensure the LAMP stack is installed
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure MariaDB is installed
+      ansible.builtin.package:
+        name:
+          - mariadb-server
+          - mariadb-client
+        state: latest
+        use: apt
+
+    - name: Ensure MariaDB is set up
+      ansible.builtin.command:
+        cmd: echo -e "\nN\nY\npassword\npassword\nY\nY\nY\nY" | sudo mysql_secure_installation
+
+    - name: Ensure PHP is installed
+      ansible.builtin.package:
+        name:
+          - php
+          - libapache2-mod-php
+          - php-cli
+          - php-fpm
+          - php-json
+          - php-pdo
+          - php-mysql
+          - php-zip
+          - php-gd
+          - php-mbstring
+          - php-curl
+          - php-xml
+          - php-pear
+          - php-bcmath
+        state: latest
+        use: apt
+     
+    - name: Ensure PHP is enabled with Apache
+      ansible.builtin.command:
+        cmd: sudo a2enmod php8.2
+
+
+- name: Ensure databases are set up
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Check if database 'wp_database' does not exist
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "DROP DATABASE IF EXISTS wp_database;"
+
+    - name: Check if user 'wpuser' does not exist
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "DROP USER IF EXISTS 'wpuser'@'localhost';"
+
+    - name: Create a database called "wp_database"
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "CREATE DATABASE wp_database;"
+
+    - name: Create a user called "wpuser"
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "CREATE USER 'wpuser'@'localhost' IDENTIFIED BY 'password';"
+
+    - name: Grand database permissions
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "GRANT ALL ON `wp_database`.* TO `wpuser`@`localhost`;"
+
+    - name: Flush privileges
+      ansible.builtin.command:
+        cmd: sudo mysql -u root -e "FLUSH PRIVILEGES;"
+
+- name: Set up Wordpress
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Empty /var/www/html
+      ansible.builtin.shell:
+        cmd: rm -r /var/www/html/*
+
+    - name: Download Wordpress
+      ansible.builtin.get_url:
+        url: https://wordpress.org/latest.tar.gz
+        dest: /var/www/html
+
+    - name: Decompress the tar ball
+      ansible.builtin.command:
+        cmd: tar -xzf /var/www/html/latest.tar.gz
+    
+    - name: Move all files
+      ansible.builtin.shell:
+        cmd: sudo mv wordpress/* /var/www/html
+
+    - name: Change permissions of the files
+      ansible.builtin.file:
+        path: /var/www/html/
+        owner: www-data
+
+    - name: Clean up
+      ansible.builtin.shell:
+        cmd: rm -r wordpress /var/www/html/latest.tar.gz
+
+    - name: Copy wp-config
+      ansible.builtin.copy:
+        src: /var/www/html/wp-config-sample.php
+        dest: /var/www/html/wp-config.php
+
+    - name: Configure Wordpress database
+      ansible.builtin.lineinfile:
+        path: /var/www/html/wp-config.php
+        search_string: "database_name_here"
+        line: "define( 'DB_NAME', 'wp_database' );"
+
+    - name: Configure Wordpress user
+      ansible.builtin.lineinfile:
+        path: /var/www/html/wp-config.php
+        search_string: "username_here"
+        line: "define( 'DB_USER', 'wpuser' );"
+
+    - name: Configure Wordpress password
+      ansible.builtin.lineinfile:
+        path: /var/www/html/wp-config.php
+        search_string: "password_here"
+        line: "define( 'DB_PASSWORD', 'password' );"

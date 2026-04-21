@@ -1,0 +1,17 @@
+﻿1. 11 packets
+2. Time:  0.748910999
+3. Machine → Browser Packets: 5
+4. Browser → Machine Packets: 6
+5. The last packet has a FIN in the information, probably to finish the setup process
+6. 80 bytes: All are ACK packets
+7. 63783 bytes; the FIN packet
+8. Mac Address: 42:01:0a:80:00:02
+9. To VM: 39 | From VM: 61
+10. One other node, since it’s most likely communicating to the browser
+11. All use IPv4
+12. No bad checksum
+13. sample.txt checksum: 316556a1; Changed checksum: 905cd24f
+14. Checksums:
+   a. file1: d94ab627
+   b. file2: d94ab627
+   c. Both files do not share the same contents; Perhaps the contents/variables inside the files equate to the same size

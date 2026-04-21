@@ -1,0 +1,22 @@
+﻿1. IPv4 Address: 10.128.0.2
+2. Internal
+3. Final number in the address is .2, not .1
+4. ⅔ hours
+5. Manually
+6. Local: 136.112.123.95
+7. External: 199.111.65.11
+8. Yes, one is accessed locally while the other can be accessed online
+9. Yes, also for NAT usage, one was generated for the request
+10. Addresses:
+   1. 10.128.0.2
+   2. 199.111.65.11
+   3. 169.254.169.254
+   4. 216.239.38.174
+11. 64, 123, 127; 3-4 hops
+12. ~60
+13. 10 hops; 7 empty
+14. Location: 3.237.140.217
+15. 1; It’s either because it’s the default browser website or that our VM is originally hosted there
+16. 7
+   1. Shared prefix in 3 steps: 208.80.153
+   2. They come from a shared subnet (codfw.wikimedia.org)

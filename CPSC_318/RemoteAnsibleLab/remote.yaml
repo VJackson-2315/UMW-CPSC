@@ -1,0 +1,61 @@
+- name: Ensure remote connection
+  hosts: all
+  become: true
+  vars:
+    file: /etc/ssh/sshd_config
+    unused_packages:
+      - ftp
+      - telnet
+    html: /var/www/html/index.html
+
+  tasks:
+    - name: Ensure Apache is installed and up to date
+      ansible.builtin.package:
+        name: apache2
+        state: latest
+
+    - name: Ensure Apache is up and running
+      ansible.builtin.service:
+        name: apache2
+        enabled: yes
+        state: started
+
+    - name: Enure password authentication is disabled
+      ansible.builtin.lineinfile:
+        path: "{{ file }}"
+        search_string: 'PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+    - name: Ensure root password is disabled
+      ansible.builtin.lineinfile:
+        path: "{{ file }}"
+        search_string: 'PermitRootLogin'
+        line: 'PermitRootLogin no'
+
+    - name: Ensure ssh is restarted
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
+
+    - name: Ensure fail2ban is installed
+      ansible.builtin.package:
+        name: fail2ban
+        state: latest
+
+    - name: Ensure ftp and telnet are NOT installed
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ unused_packages }}"
+
+    - name: Ensure there is no index file yet
+      ansible.builtin.file:
+        path: "{{ html }}"
+        state: absent
+
+    - name: Create an html page
+      ansible.builtin.lineinfile:
+        path: "{{ html }}"
+        line: '<h>Hello from {{ansible_os_family }} {{ ansible_distribution_major_version }}!</h>'
+        create: yes
+

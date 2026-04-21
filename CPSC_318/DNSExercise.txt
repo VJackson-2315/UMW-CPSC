@@ -1,0 +1,15 @@
+﻿1. IP address: 169.254.169.254
+2. Server: Google
+3. Hex Identifications: 0xa784; 0x1680
+4. Time: About 1 second
+5. There is traffic for some of the requests
+6. The only thing readable is the url of the site or anything similar (en.wikipedia.org; dyna.wikimedia). DNS doesn’t hide the receiver of the request
+7. Mail server: mx1.hc3757-75.iphmx.com
+8. IP address for server: 169.254.169.254#53
+9. Name: itch.io
+10. IP: 104.26.9.198
+11. Nameserver: dawn.ns.cloudflare.com
+12. Address of nameserver: 173.245.58.106#53
+13. Yes:
+   1. mx.zoho.com
+   2. mx2.xoho.com
